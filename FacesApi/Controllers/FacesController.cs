@@ -29,7 +29,7 @@ namespace FacesApi.Controllers
             Mat src = Cv2.ImDecode(image, ImreadModes.Color);
             // For test purpose...
             src.SaveImage("image.jpg", new ImageEncodingParam(ImwriteFlags.JpegProgressive, 255));
-
+             
             var file = Path.Combine(Directory.GetCurrentDirectory(), "CascadeFile", "haarcascade_frontalsface_default");
             var faceCascade = new CascadeClassifier();
             faceCascade.Load(file);
