@@ -1,0 +1,2 @@
+# FaceDetectionNetCore
+Example using microservices
