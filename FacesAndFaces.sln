@@ -3,7 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacesApi", "FacesApi\FacesApi.csproj", "{59B878F9-BD65-4C27-AF8B-EB68FB4F00FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacesApi", "Faces\FacesApi\FacesApi.csproj", "{59B878F9-BD65-4C27-AF8B-EB68FB4F00FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Faces", "Faces", "{76145E5D-05E2-477A-918A-3421474A3BCC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaceApiTest", "Faces\FaceApiTest\FaceApiTest.csproj", "{F6F5A648-5C92-476A-95C3-CB7A4DED0514}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FacesSharedLIb", "FacesSharedLIb", "{2DB231EF-F830-448D-9464-7001EC9C3543}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingShared", "Faces.SharedLib\Messaging.Shared\MessagingShared.csproj", "{15BD39A1-1BBA-4D6F-BD1C-5B52E1634169}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FacesWeb", "FacesWeb", "{03218AF0-2C66-40CC-A1EE-447354242F54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacesWebMvc", "FacesWebMvc\FacesWebMvc.csproj", "{38BF9895-6623-42E1-BAF5-D27D30874C43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{E0E7F72C-DA65-4DE7-8C5F-D45A00A140A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrdersApi", "Ordering\OrdersApi\OrdersApi.csproj", "{7DDC5000-A031-4F21-95FB-07B4AEF17158}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +31,32 @@ Global
 		{59B878F9-BD65-4C27-AF8B-EB68FB4F00FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59B878F9-BD65-4C27-AF8B-EB68FB4F00FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59B878F9-BD65-4C27-AF8B-EB68FB4F00FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6F5A648-5C92-476A-95C3-CB7A4DED0514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F5A648-5C92-476A-95C3-CB7A4DED0514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F5A648-5C92-476A-95C3-CB7A4DED0514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F5A648-5C92-476A-95C3-CB7A4DED0514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15BD39A1-1BBA-4D6F-BD1C-5B52E1634169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BD39A1-1BBA-4D6F-BD1C-5B52E1634169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BD39A1-1BBA-4D6F-BD1C-5B52E1634169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BD39A1-1BBA-4D6F-BD1C-5B52E1634169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38BF9895-6623-42E1-BAF5-D27D30874C43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38BF9895-6623-42E1-BAF5-D27D30874C43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38BF9895-6623-42E1-BAF5-D27D30874C43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38BF9895-6623-42E1-BAF5-D27D30874C43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DDC5000-A031-4F21-95FB-07B4AEF17158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DDC5000-A031-4F21-95FB-07B4AEF17158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DDC5000-A031-4F21-95FB-07B4AEF17158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DDC5000-A031-4F21-95FB-07B4AEF17158}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{59B878F9-BD65-4C27-AF8B-EB68FB4F00FE} = {76145E5D-05E2-477A-918A-3421474A3BCC}
+		{F6F5A648-5C92-476A-95C3-CB7A4DED0514} = {76145E5D-05E2-477A-918A-3421474A3BCC}
+		{15BD39A1-1BBA-4D6F-BD1C-5B52E1634169} = {2DB231EF-F830-448D-9464-7001EC9C3543}
+		{38BF9895-6623-42E1-BAF5-D27D30874C43} = {03218AF0-2C66-40CC-A1EE-447354242F54}
+		{7DDC5000-A031-4F21-95FB-07B4AEF17158} = {E0E7F72C-DA65-4DE7-8C5F-D45A00A140A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CC07CCD-CEA9-4B98-98F4-3820A5FBC2A1}

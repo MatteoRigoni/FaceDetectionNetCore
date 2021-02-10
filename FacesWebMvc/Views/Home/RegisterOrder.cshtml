@@ -1,0 +1,32 @@
+﻿ @model FacesWebMvc.Controllers.OrderViewModel
+
+@{ 
+    ViewData["Title"] = "Register order page";
+}
+
+<div>
+    <div class="row">
+        <img src="~/images/faces-logotype_1025-782.jpg"  />
+        <h2 style="margin-top:20px!important;">Order registration</h2>
+    </div>
+    </div>
+<form asp-controller="Home" asp-action="RegisterOrder" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-10">
+            <h4>Enter email address and upload face picture</h4>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <p>Upload your image using the button below</p>
+            <input type="file" name="file" />
+        </div>
+
+    </div>
+    <br />
+
+    <input type="submit" value="Submit" class="btn btn-info" />
+</form>
