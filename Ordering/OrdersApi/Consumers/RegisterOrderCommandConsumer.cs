@@ -1,5 +1,8 @@
 ﻿using MassTransit;
 using MessagingShared.Commands;
+using MessagingShared.Constants;
+using MessagingShared.Events;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using OrdersApi.Models;
 using OrdersApi.Persistance;
@@ -15,11 +18,13 @@ namespace OrdersApi.Consumers
     {
         private readonly IOrderRepository _orderRepo;
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IHubContext<OrderHub> _hubConntext;
 
-        public RegisterOrderCommandConsumer(IOrderRepository orderRepo, IHttpClientFactory clientFactory)
+        public RegisterOrderCommandConsumer(IOrderRepository orderRepo, IHttpClientFactory clientFactory, IHubContext<OrderHub> hubConntext)
         {
             _orderRepo = orderRepo;
             _clientFactory = clientFactory;
+            _hubConntext = hubConntext;
         }
         public async Task Consume(ConsumeContext<IRegisterOrderCommand> context)
         {
@@ -27,6 +32,7 @@ namespace OrdersApi.Consumers
             if (result.OrderId != null)
             {
                 SaveOrder(result);
+                await _hubConntext.Clients.All.SendAsync("UpdateOrders", "New order created", result.OrderId);
 
                 var client = _clientFactory.CreateClient();
                 Tuple<List<byte[]>, Guid> orderDetailData = await GetFacesFromFaceApiAsync(client, result.ImageData, result.OrderId);
@@ -34,6 +40,19 @@ namespace OrdersApi.Consumers
                 Guid orderId = orderDetailData.Item2;
 
                 SaveOrderDetails(orderId, faces);
+                await _hubConntext.Clients.All.SendAsync("UpdateOrders", "Order processedd", result.OrderId);
+
+                var sendToUri = new Uri($"{RabbitMqMassiveTransitConstants.RabbitMqUri }/" +
+                $"{RabbitMqMassiveTransitConstants.NotificationServiceQueue}");
+
+                var endPoint = await context.GetSendEndpoint(sendToUri);
+                await endPoint.Send<IOrderProcessedEvent>(
+                    new
+                    {
+                        context.Message.OrderId,
+                        faces,
+                        context.Message.Email
+                    });
             }
         }
 

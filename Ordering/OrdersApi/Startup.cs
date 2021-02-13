@@ -37,6 +37,12 @@ namespace OrdersApi
                 Configuration.GetConnectionString("OrdersContextConnection")
             ));
 
+            services.AddSignalR()
+                .AddJsonProtocol(options =>
+                {
+                    options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+                });
+
             services.AddHttpClient();
             services.AddTransient<IOrderRepository, OrderRepository>();
 
@@ -44,6 +50,7 @@ namespace OrdersApi
                 c =>
                 {
                     c.AddConsumer<RegisterOrderCommandConsumer>();
+                    c.AddConsumer<OrderDispatchedEventConsumer>();
                 });
 
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
@@ -55,9 +62,25 @@ namespace OrdersApi
                     e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
                     e.Consumer<RegisterOrderCommandConsumer>(provider);
                 });
+                cfg.ReceiveEndpoint(RabbitMqMassiveTransitConstants.OrderDispatchedServiceQueue, e =>
+                {
+                    e.PrefetchCount = 16;
+                    e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
+                    e.Consumer<OrderDispatchedEventConsumer>(provider);
+                });
 
                 //cfg.ConfigureEndpoints(provider);
             }));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder                    
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .SetIsOriginAllowed((host) => true));
+            });
 
             services.AddSingleton<IHostedService, BusService>();
             services.AddControllers();
@@ -74,12 +97,14 @@ namespace OrdersApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<OrderHub>("/orderhub");
             });
         }
     }

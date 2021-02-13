@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FacesWebMvc.Models;
+using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FacesWebMvc.Controllers
@@ -15,7 +17,10 @@ namespace FacesWebMvc.Controllers
         [Display(Name = "ImageUrl")]
         public string ImageUrl { get; set; }
         [Display(Name = "OrderStatus")]
-        public string StatusString { get; set; }
+        public string Status { get; set; }
         public byte[] ImageData { get; set; }
+        public string ImageString { get; set; }
+
+        public List<OrderDetailViewModel> OrderDetails { get; set; }
     }
 }
